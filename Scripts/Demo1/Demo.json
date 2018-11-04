@@ -2,19 +2,19 @@
     "ConnectionString": "Server=localhost\\sql2019;Database=WideWorldImporters;Trusted_Connection=True;",
     "Templates": [
         {
-            "ScriptPath": "Blah.sql",
+            "ScriptPath": "Scripts\\Demo1\\Blah.sql",
             "Sleep": 100,
             "Threads": 50,
             "RunCount": 1000
         },
         {
-            "ScriptPath": "Blah2.sql",
+            "ScriptPath": "scripts\\demo1\\Blah2.sql",
             "Sleep": 100,
             "Threads": 1,
             "RunCount":100
         },
         {
-            "ScriptPath": "Blah3.sql",
+            "ScriptPath": "scripts\\demo1\\Blah3.sql",
             "Sleep": 100,
             "Threads": 1,
             "RunCount": 100

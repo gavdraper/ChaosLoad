@@ -4,19 +4,24 @@ using Newtonsoft.Json;
 
 namespace ChaosDemo
 {
-   public  class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            var json = System.IO.File.ReadAllText("Demo.json");
+            if (args.Length != 1)
+            {
+                Console.WriteLine("Must pass in script path");
+                return;
+            }
+            var json = System.IO.File.ReadAllText(args[0]);
             var tasks = JsonConvert.DeserializeObject<ChaosScript>(json);
             foreach (var t in tasks.Templates)
             {
                 Console.WriteLine(t.ScriptPath);
                 for (var i = 0; i < t.Threads; i++)
                 {
-                    System.Threading.Tasks.Task.Run(() => runTask(t,tasks.ConnectionString));
-                    SetThreads(1);
+                    System.Threading.Tasks.Task.Run(() => runTask(t, tasks.ConnectionString));
+                    SetTasks(1);
                 }
             }
             while (true)
@@ -25,36 +30,37 @@ namespace ChaosDemo
             }
         }
 
-        private static bool stopping = false;
-        public static int threads = 0;
+        public static int tasks = 0;
 
         public static object lck = new object();
 
-        public static void SetThreads(int threadChange)
+        public static void SetTasks(int threadChange)
         {
-            lock(lck){
-                threads+= threadChange;
+            lock (lck)
+            {
+                tasks += threadChange;
                 Console.Clear();
-                Console.WriteLine("Running threads " + threads);
+                Console.WriteLine("Running Tasks " + tasks);
             }
         }
 
-        private static void runTask(ChaosTemplate template,string conStr)
+        private static void runTask(ChaosTemplate template, string conStr)
         {
             var runCount = 0;
             var sql = System.IO.File.ReadAllText(template.ScriptPath);
-            while (!stopping && runCount < template.RunCount)
+            while (runCount < template.RunCount)
             {
-                using(var sqlCon = new SqlConnection(conStr))
+                using (var sqlCon = new SqlConnection(conStr))
                 {
-                    var cmd = new SqlCommand(sql,sqlCon);
+                    var cmd = new SqlCommand(sql, sqlCon);
                     sqlCon.Open();
                     cmd.ExecuteNonQuery();
                     sqlCon.Close();
                 }
-                runCount++;
+                if (template.RunCount > 0)
+                    runCount++;
             }
-            SetThreads(-1);
+            SetTasks(-1);
         }
     }
 
