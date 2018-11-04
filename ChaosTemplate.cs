@@ -1,0 +1,11 @@
+namespace ChaosDemo
+{
+    public class ChaosTemplate
+    {
+        public string ScriptPath { get; set; }
+        public int RunCount { get; set; }
+        public int Sleep { get; set; }
+        public int Threads { get; set; }
+    }
+
+}
