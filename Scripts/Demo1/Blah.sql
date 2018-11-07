@@ -1,1 +1,0 @@
-SELECT TOP 1000 * FROM Sales.Customers WHERE customerName LIKE '%Toys%'

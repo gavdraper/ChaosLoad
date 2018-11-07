@@ -20,7 +20,8 @@ namespace ChaosDemo
                 Console.WriteLine(t.ScriptPath);
                 for (var i = 0; i < t.Threads; i++)
                 {
-                    System.Threading.Tasks.Task.Run(() => runTask(t, tasks.ConnectionString));
+                    var t2 = new System.Threading.Thread(() => { runTask(t, tasks.ConnectionString); });
+                    t2.Start();
                     SetTasks(1);
                 }
             }
@@ -53,9 +54,13 @@ namespace ChaosDemo
                 using (var sqlCon = new SqlConnection(conStr))
                 {
                     var cmd = new SqlCommand(sql, sqlCon);
-                    sqlCon.Open();
-                    cmd.ExecuteNonQuery();
-                    sqlCon.Close();
+                    try
+                    {
+                        sqlCon.Open();
+                        cmd.ExecuteNonQuery();
+                        sqlCon.Close();
+                    }
+                    catch { }
                 }
                 if (template.RunCount > 0)
                     runCount++;
