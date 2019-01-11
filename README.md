@@ -11,7 +11,7 @@ ChaosLoad allows you to define a JSON template of the load you want to run that 
    "ConnectionString": "Server=localhost\\sql2019;Database=WideWorldImporters;Trusted_Connection=True;",
    "Templates": [
       {
-         "ScriptPath": "Scripts\\Demo1\\HammerTim.sql",
+         "ScriptPath": "Scripts\\Demo1\\HammerTime.sql",
          "Sleep": 100,
          "Threads": 50,
          "RunCount": 1000
@@ -87,18 +87,6 @@ WHERE DisplayName LIKE '%G'
 SELECT COUNT(*)
 FROM Posts
 ```
-
-Before I run this the server has nothing going on...
-
-![Empty sp_whoisactive]({https://gavindraper.com/content/images/2019-ChaosLoad\NoLoad.PNG)
-
-Let's then fire it up...
-
-![Starting From Console](https://gavindraper.com//content/images/2019-ChaosLoad\Start.PNG)
-
-Now our server looks like this...
-
-![Loaded sp_whoisactive](https://gavindraper.com//content/images/2019-ChaosLoad\Load.PNG)
 
 Minor disclaimer, This project was written in an hour or so late one evening, it's pretty scrappy and whilst I fully intend to go back and tidy up there is a good chance I'll never get to it ;) Feel free to submit pull requests.
 
