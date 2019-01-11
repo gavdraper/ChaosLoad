@@ -1,4 +1,3 @@
-# ChaosLoad
 ## Scripted Simulation of SQL Server Loads ##
 When blogging, presenting or testing an idea, one issue I constantly have is that my local SQL Server used for all these things has no real load on it making it hard to test how things I do work concurrently or under stress. I used to use Adam Machanic's [SQLQueryStress](https://github.com/ErikEJ/SqlQueryStress) and this was great for running single scripts but made it hard to make more realistic loads.
 
