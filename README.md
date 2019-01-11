@@ -23,7 +23,7 @@ ChaosLoad allows you to define a demo SQL Server load in a JSON file and execute
 ```
 
 This is saying run
-* LotOfCols.sql run concurrently across 50 threads for a total of 100 executions and pause for 100ms on each thread after each execution.
+* LotOfCols.sql run concurrently across 50 threads, 100 times on each and pause for 100ms on each thread after each execution.
 * GetAllLogs.sql run 5 times concurrently on 5 threads with no sleep required as each thread will only run the script once.
 
 To run from source you need the .Net Core 2.0+ SDK found here [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
