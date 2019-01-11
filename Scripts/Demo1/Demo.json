@@ -1,11 +1,22 @@
 {
-    "ConnectionString": "Server=localhost\\sql2019;Database=WideWorldImporters;Trusted_Connection=True;",
-    "Templates": [
+    "ConnectionString": "Server=localhost\\sql2017;Database=StackOVerflow2013;Trusted_Connection=True;",
+    "Templates": [{
+            "ScriptPath": "Scripts\\Demo1\\GetAllUsersEndWithG.sql",
+            "Sleep": 0,
+            "Threads": 5,
+            "RunCount": 10
+        },
         {
-            "ScriptPath": "Scripts\\Demo1\\DedicatedAdminConnection.sql",
-            "Sleep": 100,
-            "Threads": 50,
-            "RunCount": 1000
+            "ScriptPath": "Scripts\\Demo1\\GetCountPosts.sql",
+            "Sleep": 0,
+            "Threads": 5,
+            "RunCount": 10
+        },
+        {
+            "ScriptPath": "Scripts\\Demo1\\GetMostPopularBadge.sql",
+            "Sleep": 10,
+            "Threads": 5,
+            "RunCount": 10
         }
     ]
 }
