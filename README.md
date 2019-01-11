@@ -28,7 +28,7 @@ ChaosLoad allows you to define a JSON template of the load you want to run that 
 
 You can define any number of scripts and have them execute a set number of times on a specified number of threads with a specified interval after each run. In the above example HammerTime.Sql runs 100 times on 50 threads and pauses for 50ms after each run, FindUser.Sql runs 5 times on 5 threads with no pause between each execution.
 
-The source can be found on the [ChaosLoad GitHub Repository](https://github.com/gavdraper/ChaosLoad), to run from source you'll need to first install [.Net Core SDK 2.1+](https://dotnet.microsoft.com/download), alternatively you can download the Windows release binaries from GitHub and run without installing anything.
+To run from source you'll need to first install [.Net Core SDK 2.1+](https://dotnet.microsoft.com/download), alternatively you can download the Windows release binaries under releases.
 
 Assuming you've cloned the source then you can run ChaosLoad from command line by going to the directory the project is in and running
 
