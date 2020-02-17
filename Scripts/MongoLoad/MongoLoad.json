@@ -6,13 +6,13 @@
             "ScriptPath": "Scripts\\MongoLoad\\MongoInsert.json",
             "Sleep": 0,
             "Threads": 15,
-            "RunCount": 300,
+            "RunCount": 300
         },
         {
             "ScriptPath": "Scripts\\MongoLoad\\MongoUpdate.json",
             "Sleep": 0,
             "Threads": 5,
-            "RunCount": 0,
+            "RunCount": 0
         }
     ]
 }
