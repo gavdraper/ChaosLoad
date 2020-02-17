@@ -29,7 +29,13 @@ namespace ChaosDemo
                 Console.WriteLine(template.ScriptPath);
                 for (var i = 0; i < template.Threads; i++)
                 {
-                    var templateThread = new System.Threading.Thread(() => { runTask(template, chaosScript.ConnectionString); });
+                    var templateThread = new System.Threading.Thread(() =>
+                    {
+                        if (chaosScript.Type == TemplateType.Sql)
+                            runSqlTask(template, chaosScript.ConnectionString);
+                        else if (chaosScript.Type == TemplateType.Mongo)
+                            runMongoTask(template, chaosScript.ConnectionString);
+                    });
                     templateThread.Start();
                     setRunningThreadCount(1);
                 }
@@ -58,34 +64,17 @@ namespace ChaosDemo
             return command;
         }
 
-        private void runTask(ChaosTemplate template, string conStr)
+        private void runSqlTask(ChaosTemplate template, string conStr)
         {
             var runCount = 0;
             var commandText = System.IO.File.ReadAllText(template.ScriptPath);
             while (runCount <= template.RunCount)
             {
-                switch (template.Type)
+                using (var sqlCon = new SqlConnection(conStr))
                 {
-                    case TemplateType.Sql:
-                        using (var sqlCon = new SqlConnection(conStr))
-                        {
-                            var cmd = new SqlCommand(replaceParams(commandText), sqlCon);
-                            try
-                            {
-                                sqlCon.Open();
-                                cmd.ExecuteNonQuery();
-                                sqlCon.Close();
-                            }
-                            catch { }
-                        }
-                        break;
-                    case TemplateType.Mongo:
-                        var client = new MongoClient(conStr);
-                        var db = client.GetDatabase(template.MongoDatabase);
-                        db.RunCommand<dynamic>(replaceParams(commandText));
-                        break;
-                    default:
-                        throw new ArgumentException("No Supported Type");
+                    sqlCon.Open();
+                    var cmd = new SqlCommand(replaceParams(commandText), sqlCon);
+                    cmd.ExecuteNonQuery();
                 }
                 if (template.RunCount > 0)
                     runCount++;
@@ -93,6 +82,23 @@ namespace ChaosDemo
             setRunningThreadCount(-1);
         }
 
+        private void runMongoTask(ChaosTemplate template, string conStr)
+        {
+            var runCount = 0;
+            var commandText = System.IO.File.ReadAllText(template.ScriptPath);
+            while (runCount <= template.RunCount)
+            {
+
+                var client = new MongoClient(conStr);
+                var db = client.GetDatabase(template.MongoDatabase);
+                db.RunCommand<dynamic>(replaceParams(commandText));
+                if (template.RunCount > 0)
+                    runCount++;
+            }
+            setRunningThreadCount(-1);
+        }
+
     }
+
 
 }

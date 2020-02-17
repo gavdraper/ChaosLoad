@@ -6,7 +6,6 @@ namespace ChaosDemo
         public int RunCount { get; set; }
         public int Sleep { get; set; }
         public int Threads { get; set; }
-        public TemplateType Type { get; set; }
         public string MongoDatabase { get; set; }
     }
 

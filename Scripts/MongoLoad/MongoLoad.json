@@ -1,10 +1,10 @@
 {
     "ConnectionString": "mongodb://127.0.0.1:27017/",
+    "Type": "Mongo",
     "Templates": [
         {
             "ScriptPath": "Scripts\\MongoLoad\\MongoInsert.json",
             "Sleep": 0,
-            "Type": "Mongo",
             "Threads": 15,
             "RunCount": 300,
             "MongoDatabase": "LoadTests"
@@ -12,7 +12,6 @@
         {
             "ScriptPath": "Scripts\\MongoLoad\\MongoUpdate.json",
             "Sleep": 0,
-            "Type": "Mongo",
             "Threads": 5,
             "RunCount": 0,
             "MongoDatabase": "LoadTests"
