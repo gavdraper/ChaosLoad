@@ -88,9 +88,8 @@ namespace ChaosDemo
             var commandText = System.IO.File.ReadAllText(template.ScriptPath);
             while (runCount <= template.RunCount)
             {
-
-                var client = new MongoClient(conStr);
-                var db = client.GetDatabase(template.MongoDatabase);
+                var mongoUrl = new MongoUrl(conStr);
+                var db = new MongoClient(conStr).GetDatabase(mongoUrl.DatabaseName);
                 db.RunCommand<dynamic>(replaceParams(commandText));
                 if (template.RunCount > 0)
                     runCount++;
