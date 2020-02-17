@@ -1,20 +1,24 @@
 {
     "ConnectionString": "Server=localhost\\sql2017;Database=StackOVerflow2013;Trusted_Connection=True;",
-    "Templates": [{
+    "Templates": [
+        {
             "ScriptPath": "Scripts\\Demo1\\GetAllUsersEndWithG.sql",
             "Sleep": 0,
+            "TemplateType": "Sql",
             "Threads": 5,
             "RunCount": 10
         },
         {
             "ScriptPath": "Scripts\\Demo1\\GetCountPosts.sql",
             "Sleep": 0,
+            "TemplateType": "Sql",
             "Threads": 5,
             "RunCount": 10
         },
         {
             "ScriptPath": "Scripts\\Demo1\\GetMostPopularBadge.sql",
             "Sleep": 10,
+            "TemplateType": "Sql",
             "Threads": 5,
             "RunCount": 10
         }
