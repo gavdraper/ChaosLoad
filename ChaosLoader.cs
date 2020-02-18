@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using ChaosLoad.Models;
 using ChaosLoad.PlatformLoaders;
-using Newtonsoft.Json;
 using System.Threading;
 using System.Linq;
 
@@ -33,7 +31,8 @@ namespace ChaosLoad
                         chaosScript.ConnectionString,
                         chaosScript.Type,
                         commandText,
-                        template.RunCount)
+                        template.RunCount,
+                        template.Sleep)
                     );
                     templateThread.Start();
                     IncrementThreeadCount();
@@ -42,14 +41,16 @@ namespace ChaosLoad
             allThreadsStarted = true;
         }
 
-        private void RunPlatformLoader(string connectionString, TemplateType type, string commandText, int repeat)
+        private void RunPlatformLoader(string connectionString, TemplateType type, string commandText, int repeat, int sleep)
         {
             var loader = loaders.Single(x => x.HandlesType == type);
             loader.RunTask(
                 connectionString,
                 commandText,
                 repeat,
-                () => DecrementThreeadCount());
+                () => DecrementThreeadCount(),
+                sleep
+                );
         }
 
         private void IncrementThreeadCount()
@@ -71,5 +72,6 @@ namespace ChaosLoad
                 }
             }
         }
+
     }
 }

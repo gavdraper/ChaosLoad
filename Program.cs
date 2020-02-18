@@ -3,6 +3,7 @@ using ChaosLoad.Models;
 using ChaosLoad.PlatformLoaders;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace ChaosLoad
 {
@@ -20,8 +21,7 @@ namespace ChaosLoad
                 return;
             }
 
-            var json = System.IO.File.ReadAllText(args[0]);
-            var chaosScript = JsonConvert.DeserializeObject<ChaosScript>(json);
+            var chaosScript = JsonConvert.DeserializeObject<ChaosScript>(File.ReadAllText(args[0]));
 
             var loader = services.GetService<ChaosLoader>();
             loader.Run(chaosScript);
@@ -44,5 +44,6 @@ namespace ChaosLoad
                 .AddSingleton<ParamReplacer, ParamReplacer>()
                 .BuildServiceProvider();
         }
+
     }
 }

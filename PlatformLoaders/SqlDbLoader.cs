@@ -15,7 +15,7 @@ namespace ChaosLoad.PlatformLoaders
             this.paramReplacer = paramReplacer;
         }
 
-        public void RunTask(string connection, string command, int repeat, Action onComplete)
+        public void RunTask(string connection, string command, int repeat, Action onComplete, int sleep = 0)
         {
             var runCount = 0;
             while (runCount <= repeat)
@@ -28,6 +28,7 @@ namespace ChaosLoad.PlatformLoaders
                 }
                 if (repeat > 0)
                     runCount++;
+                System.Threading.Thread.Sleep(sleep);
             }
             onComplete();
         }
