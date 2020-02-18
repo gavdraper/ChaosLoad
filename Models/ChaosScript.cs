@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ChaosDemo
+namespace ChaosLoad.Models
 {
     public class ChaosScript
     {

@@ -1,5 +1,6 @@
 {
     "ConnectionString": "Server=localhost\\sql2017;Database=StackOVerflow2013;Trusted_Connection=True;",
+    "Type": "SQL",
     "Templates": [
         {
             "ScriptPath": "Scripts\\Demo1\\GetAllUsersEndWithG.sql",

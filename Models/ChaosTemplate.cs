@@ -1,4 +1,4 @@
-namespace ChaosDemo
+namespace ChaosLoad.Models
 {
     public class ChaosTemplate
     {

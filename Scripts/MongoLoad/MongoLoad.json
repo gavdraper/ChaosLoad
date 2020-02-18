@@ -12,7 +12,7 @@
             "ScriptPath": "Scripts\\MongoLoad\\MongoUpdate.json",
             "Sleep": 0,
             "Threads": 5,
-            "RunCount": 0
+            "RunCount": 15
         }
     ]
 }
