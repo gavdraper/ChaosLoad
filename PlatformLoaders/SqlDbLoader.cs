@@ -23,12 +23,13 @@ namespace ChaosLoad.PlatformLoaders
             using (var sqlCon = new SqlConnection(connection))
             {
                 sqlCon.Open();
-                var cmd = new SqlCommand(paramReplacer.Replace(command), sqlCon);
+                var cmd = new SqlCommand("", sqlCon);
 
                 while (repeat == 0 || runCount < repeat)
                 {
+                    cmd.CommandText = paramReplacer.Replace(command);
                     cmd.ExecuteNonQuery();
-                    
+
                     if (repeat > 0)
                         runCount++;
                     System.Threading.Thread.Sleep(sleep);

@@ -22,12 +22,12 @@ namespace ChaosLoad.PlatformLoaders
 
             var mongoUrl = new MongoUrl(connection);
             var db = new MongoClient(mongoUrl).GetDatabase(mongoUrl.DatabaseName);
-            var paramCommand = paramReplacer.Replace(command);
 
             while (repeat == 0 || runCount <= repeat)
             {
+                var paramCommand = paramReplacer.Replace(command);
                 db.RunCommand<dynamic>(paramCommand);
-                
+
                 if (repeat > 0)
                     runCount++;
                 System.Threading.Thread.Sleep(sleep);
