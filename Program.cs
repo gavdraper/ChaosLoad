@@ -4,6 +4,7 @@ using ChaosLoad.PlatformLoaders;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System.IO;
+using ChaosDemo.PlatformLoaders.Utils;
 
 namespace ChaosLoad
 {
