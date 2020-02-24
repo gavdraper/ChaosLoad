@@ -1,5 +1,6 @@
 using System;
 using System.Data.SqlClient;
+using ChaosDemo.PlatformLoaders.Utils;
 using ChaosLoad.Models;
 
 namespace ChaosLoad.PlatformLoaders
@@ -18,17 +19,20 @@ namespace ChaosLoad.PlatformLoaders
         public void RunTask(string connection, string command, int repeat, Action onComplete, int sleep = 0)
         {
             var runCount = 0;
-            while (runCount <= repeat)
+
+            using (var sqlCon = new SqlConnection(connection))
             {
-                using (var sqlCon = new SqlConnection(connection))
+                sqlCon.Open();
+                var cmd = new SqlCommand(paramReplacer.Replace(command), sqlCon);
+
+                while (repeat == 0 || runCount < repeat)
                 {
-                    sqlCon.Open();
-                    var cmd = new SqlCommand(paramReplacer.Replace(command), sqlCon);
                     cmd.ExecuteNonQuery();
+                    
+                    if (repeat > 0)
+                        runCount++;
+                    System.Threading.Thread.Sleep(sleep);
                 }
-                if (repeat > 0)
-                    runCount++;
-                System.Threading.Thread.Sleep(sleep);
             }
             onComplete();
         }
