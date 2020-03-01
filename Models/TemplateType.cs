@@ -4,7 +4,7 @@ namespace ChaosLoad.Models
     {
         Sql,
         Mongo,
-        Rabbit
+        RabbitPublisher
     }
 
 }

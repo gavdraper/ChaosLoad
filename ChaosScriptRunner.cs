@@ -1,21 +1,20 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ChaosLoad.Models;
-using ChaosLoad.PlatformLoaders;
 using System.Threading;
 using System.Linq;
+using ChaosLoad.PlatformLoaders;
 
 namespace ChaosLoad
 {
-    public class ChaosLoader
+    public class ChaosScriptRunner
     {
         public bool Finished { get; set; } = false;
-
         private int runningThreadCount;
         private bool allThreadsStarted = false;
         private readonly object lck = new object();
         private readonly IEnumerable<IPlatformLoader> loaders;
 
-        public ChaosLoader(IEnumerable<IPlatformLoader> loaders)
+        public ChaosScriptRunner(IEnumerable<IPlatformLoader> loaders)
         {
             this.loaders = loaders;
         }

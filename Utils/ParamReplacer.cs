@@ -1,6 +1,6 @@
 using System;
 
-namespace ChaosDemo.PlatformLoaders.Utils
+namespace ChaosLoad.Utils
 {
     public class ParamReplacer
     {

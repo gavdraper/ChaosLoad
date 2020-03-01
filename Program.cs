@@ -4,7 +4,8 @@ using ChaosLoad.PlatformLoaders;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System.IO;
-using ChaosDemo.PlatformLoaders.Utils;
+using ChaosLoad.Utils;
+using System.Linq;
 
 namespace ChaosLoad
 {
@@ -18,17 +19,25 @@ namespace ChaosLoad
 
             if (args.Length != 1)
             {
-                Console.WriteLine("Must pass in script path");
-                return;
+                args = new string[] { "scripts/dockersql/demo.json" };
+                //Console.WriteLine("Must pass in script path");
+                //return;
             }
 
             var chaosScript = JsonConvert.DeserializeObject<ChaosScript>(File.ReadAllText(args[0]));
 
-            var loader = services.GetService<ChaosLoader>();
+            var loader = services.GetService<ChaosScriptRunner>();
             loader.Run(chaosScript);
 
             while (!loader.Finished)
             {
+
+                foreach (var l in services.GetServices<IPlatformLoader>().Where(x => x.Active))
+                {
+                    var stats = l.Stats();
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.Write(stats + "      ");
+                }
                 System.Threading.Thread.Sleep(1000);
             }
 
@@ -39,9 +48,10 @@ namespace ChaosLoad
         static void SetupDI()
         {
             services = new ServiceCollection()
-                .AddTransient<IPlatformLoader, MongoDbLoader>()
-                .AddTransient<IPlatformLoader, SqlDbLoader>()
-                .AddSingleton<ChaosLoader, ChaosLoader>()
+                .AddSingleton<IPlatformLoader, MongoDBLoader>()
+                .AddSingleton<IPlatformLoader, SqlServerLoader>()
+                .AddSingleton<IPlatformLoader, RabbitPublisherLoader>()
+                .AddSingleton<ChaosScriptRunner, ChaosScriptRunner>()
                 .AddSingleton<ParamReplacer, ParamReplacer>()
                 .BuildServiceProvider();
         }

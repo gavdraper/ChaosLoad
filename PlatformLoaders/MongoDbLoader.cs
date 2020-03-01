@@ -1,17 +1,18 @@
-using System;
-using ChaosDemo.PlatformLoaders.Utils;
+﻿using System;
+using ChaosLoad.PlatformLoaders;
+using ChaosLoad.Utils;
 using ChaosLoad.Models;
 using MongoDB.Driver;
 
 namespace ChaosLoad.PlatformLoaders
 {
-    public class MongoDbLoader : IPlatformLoader
+    public class MongoDBLoader : Loader, IPlatformLoader
     {
         private readonly ParamReplacer paramReplacer;
-
+        public override string Name { get; set; } = "Mongo DB Loader";
         public TemplateType HandlesType => TemplateType.Mongo;
 
-        public MongoDbLoader(ParamReplacer paramReplacer)
+        public MongoDBLoader(ParamReplacer paramReplacer)
         {
             this.paramReplacer = paramReplacer;
         }

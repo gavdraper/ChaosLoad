@@ -3,22 +3,15 @@
     "Type": "SQL",
     "Templates": [
         {
-            "ScriptPath": "Scripts\\Demo1\\GetAllUsersEndWithG.sql",
+            "ScriptPath": "Scripts\\DockerSql\\Inserter.sql",
             "Sleep": 0,
             "TemplateType": "Sql",
             "Threads": 5,
             "RunCount": 10
         },
         {
-            "ScriptPath": "Scripts\\Demo1\\GetCountPosts.sql",
+            "ScriptPath": "Scripts\\DockerSql\\Updater.sql",
             "Sleep": 0,
-            "TemplateType": "Sql",
-            "Threads": 5,
-            "RunCount": 10
-        },
-        {
-            "ScriptPath": "Scripts\\Demo1\\GetMostPopularBadge.sql",
-            "Sleep": 10,
             "TemplateType": "Sql",
             "Threads": 5,
             "RunCount": 10

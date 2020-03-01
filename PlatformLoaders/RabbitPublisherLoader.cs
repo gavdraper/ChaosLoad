@@ -1,18 +1,21 @@
-using System;
-using ChaosDemo.PlatformLoaders.Utils;
+﻿using System;
+using ChaosLoad.PlatformLoaders;
+using ChaosLoad.Utils;
 using ChaosLoad.Models;
 using EasyNetQ;
 using Newtonsoft.Json;
 
 namespace ChaosLoad.PlatformLoaders
 {
-    public class RabbitLoader : IPlatformLoader
+    public class RabbitPublisherLoader : Loader, IPlatformLoader
     {
         private readonly ParamReplacer paramReplacer;
 
-        public TemplateType HandlesType => TemplateType.Sql;
+        public TemplateType HandlesType => TemplateType.RabbitPublisher;
 
-        public RabbitLoader(ParamReplacer paramReplacer)
+        public override string Name { get; set; } = "Rabbit Publisher";
+
+        public RabbitPublisherLoader(ParamReplacer paramReplacer)
         {
             this.paramReplacer = paramReplacer;
         }
@@ -20,7 +23,7 @@ namespace ChaosLoad.PlatformLoaders
         public void RunTask(string connection, string command, int repeat, Action onComplete, int sleep = 0)
         {
             var runCount = 0;
-            var bus = RabbitHutch.CreateBus("host=localhost");
+            var bus = RabbitHutch.CreateBus(connection);
 
             while (repeat == 0 || runCount < repeat)
             {
